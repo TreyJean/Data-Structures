@@ -14,11 +14,13 @@ typedef struct Node {
 // and the end of the list (tail). 
 class LinkedList {
 private:
+	int size;
 	Node* head;
 	Node* tail;
 
 public:
 	LinkedList() {
+		size = 0;
 		head = NULL;
 		tail = NULL;
 	}
@@ -36,22 +38,43 @@ public:
 			tail -> next = temp;
 			tail = tail -> next;
 		}
+
+		size++;
 	}
 
 	// Iterates through the list until a node containing the value d
 	// is found, or until the end of the list is reached
-	void deleteValue(int d) {
+	bool deleteValue(int d) {
 		Node* temp = head;
 		bool deleted = false;
 
-		while(not deleted) {
-			deleted = temp == NULL;
+		while(not deleted && temp -> next != NULL) {
 			if(temp -> next -> data == d) {
 				temp -> next = temp -> next -> next;
 				deleted = true;
 			} else {
 				temp = temp -> next;
 			}
+		}
+
+		size--;
+		return deleted;
+	}
+
+	// Returns the length of the list
+	int length() {
+		return size;
+	}
+
+	// Updates all nodes where data = n1 to data = n2
+	void update(int n1, int n2) {
+		Node* temp = head;
+		for(int i = 0; i < size; i++) {
+			if(temp -> data == n1) {
+				temp -> data = n2;
+			}
+
+			temp = temp -> next;
 		}
 	}
 
@@ -72,6 +95,8 @@ public:
 			cout << " <- t" << endl;
 		}
 	}
+
+	
 };
 
 
@@ -80,15 +105,18 @@ int main() {
 
 	// List contains the values 0 through 14
 	for(int i = 0; i < 15; i++) {
-		list.append(i);
+		list.append(i % 10);
 	}
 
 	list.display();
 
-	// Delete the values 5, 6, and 10
+	// Delete the values 5, 6, and 3
 	list.deleteValue(5);
 	list.deleteValue(6);
-	list.deleteValue(10);
+	list.deleteValue(3);
+
+	// Change all 4's to 15's
+	list.update(4, 15);
 
 	list.display();
 
