@@ -11,20 +11,47 @@ class Stack {
 private:
 	int ptr; // Points to the top of the stack
 	int array[MAX];
+	int size;
 
 public:
-	Stack() { ptr = -1; }
+	Stack() { ptr = -1; size = 0; }
 
 	void push(int n) { // Pushes a value onto the stack
-		array[++ptr] = n;
+		if(this -> isFull()) {
+			throw "Stack is Full!";
+		} else {
+			array[++ptr] = n;
+			size++;
+		}
 	}
 
 	int pop() { // Pops a value off the stack
-		return array[ptr--];
+		if(this -> isEmpty()) {
+			throw "Stack is Empty";
+		} else {
+			return array[ptr--];
+			size--;
+		}
 	}
 
 	int top() { // Returns the value on the top of the stack
-		return array[ptr];
+		if(this -> isEmpty()) {
+			throw "Stack is Empty";
+		} else {
+			return array[ptr];
+		}
+	}
+
+	int height() {
+		return size;
+	}
+
+	bool isEmpty() {
+		return size == 0;
+	}
+
+	bool isFull() {
+		return size == MAX;
 	}
 
 	void display() {
