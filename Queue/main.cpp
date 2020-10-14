@@ -17,17 +17,33 @@ public:
 	Queue() { size = 0; front = 0; end = front + size; }
 
 	void enqueue(int n) { // Pushes a value onto the end of the queue
-		size++;
-		array[end] = n;
-		end = (end + 1) % MAX;
+		if(this.isFull()) {
+			throw "Queue is Full!";
+		} else {
+			size++;
+			array[end] = n;
+			end = (end + 1) % MAX;
+		}
 	}
 
 	int dequeue() { // Pops a value off the front of the queue
-		int temp = array[front];
-		front = (front + 1) % MAX;
-		size--;
+		if(this.isEmpty()) {	
+			throw "Queue is empty!";
+		} else {
+			int temp = array[front];
+			front = (front + 1) % MAX;
+			size--;
 
-		return temp;
+			return temp;
+		}
+	}
+
+	bool isFull() {
+		return size == MAX;
+	}
+
+	bool isEmpty() {
+		return size == 0;
 	}
 
 	void display() {
