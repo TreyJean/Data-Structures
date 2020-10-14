@@ -17,7 +17,7 @@ public:
 	Queue() { size = 0; front = 0; end = front + size; }
 
 	void enqueue(int n) { // Pushes a value onto the end of the queue
-		if(this.isFull()) {
+		if(this -> isFull()) {
 			throw "Queue is Full!";
 		} else {
 			size++;
@@ -27,7 +27,7 @@ public:
 	}
 
 	int dequeue() { // Pops a value off the front of the queue
-		if(this.isEmpty()) {	
+		if(this -> isEmpty()) {	
 			throw "Queue is empty!";
 		} else {
 			int temp = array[front];
